@@ -38,7 +38,7 @@ exports[`Component: Footer should render 1`] = `
 }
 
 .c2 {
-  color: #FFFFFF;
+  color: #E5EAED;
   font-weight: 500;
   font-size: 0.7rem;
   -webkit-text-decoration: none;
