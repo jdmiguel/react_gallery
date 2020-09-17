@@ -1,0 +1,2 @@
+export const SET_LARGE_IMAGE = 'SET_LARGE_IMAGE';
+export const CLEAR_LARGE_IMAGE = 'CLEAR_LARGE_IMAGE';

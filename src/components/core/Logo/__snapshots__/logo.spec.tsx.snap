@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Logo should render 1`] = `
+.c0 {
+  font-size: 2rem;
+}
+
+<h1
+  class="c0"
+>
+  React Gallery
+</h1>
+`;
