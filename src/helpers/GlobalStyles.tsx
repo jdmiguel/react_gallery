@@ -17,4 +17,8 @@ export const GlobalStyles = createGlobalStyle`
   #root{
     overflow: auto;
   }
+
+  a{
+    text-decoration: none;
+  }
 `;

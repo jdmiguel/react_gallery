@@ -1,8 +1,8 @@
 import React from "react";
 import styled from 'styled-components';
 
-import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
+import Header from "./Header";
+import Footer from "./Footer";
 
 type LayoutProps = {
   children: React.ReactElement | Array<React.ReactElement>;

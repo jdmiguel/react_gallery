@@ -2,29 +2,30 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Logo from '../../core/Logo/Logo';
+import Logo from '../../core/Logo';
+
+import BgHeader from './gallery.jpg';
 
 const StyledHeader = styled.div`
   width: 100%;
-  max-width: 1100px;
-  height: 80px;
+  height: 120px;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  @media only screen and (min-width: 1200px) {
-    justify-content: space-between;
-  }
+  background-image: url(${BgHeader});
+  background-size: cover;
+  background-color: ${({theme}) => theme.palette.PRIMARY_DARK};
+  background-position: 70%;
+  background-blend-mode: multiply;
 `;
 
 const StyledHeaderClaim = styled.h2`
-  font-size: 1.3rem;
+  margin-top: 10px;
+  font-size: 1rem;
   font-weight: 400;
-  color: ${(props) => props.theme.palette.LIGHT_MIN};
-  display: none;
+  color:  ${({theme}) => theme.palette.LIGHT_MIN};
   @media only screen and (min-width: 768px) {
-    display: block;
-  }
-  @media only screen and (min-width: 992px) {
     font-size: 1.5rem;
   }
 `;

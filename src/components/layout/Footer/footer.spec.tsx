@@ -1,14 +1,14 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import Logo from '.';
+import Footer from '.';
 
 import { renderWithTheme } from '../../../helpers/Theme';
 
-describe('Component: Logo', () => {
+describe('Component: Footer', () => {
   it('should render', () => {
     const { container } = render(
-      renderWithTheme(<Logo />)
+      renderWithTheme(<Footer />)
     );
 
     expect(container.firstChild).toMatchSnapshot();

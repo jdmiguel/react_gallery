@@ -2,7 +2,15 @@
 
 exports[`Component: Logo should render 1`] = `
 .c0 {
-  font-size: 2rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #F2C1AE;
+}
+
+@media only screen and (min-width:768px) {
+  .c0 {
+    font-size: 2.5rem;
+  }
 }
 
 <h1
