@@ -7,7 +7,10 @@ export const DEFAULT_THUMBS = [
   {
     id: 0,
     src: '',
-    title: ''
+    title: '',
+    views: 0,
+    downloads: 0,
+    likes: 0,
   },
 ];
 

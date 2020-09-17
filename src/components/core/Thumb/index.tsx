@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom';
 import styled, { css }  from 'styled-components';
 import { LazyImage } from 'react-lazy-images';
 
-import { ThumbData } from '../../../helpers/types';
-
 import Default from './default.png';
+
+export type ThumbProps = {
+  id: number;
+  src: string;
+  title: string;
+}
 
 const ImageCSS = css`
   width: 100%;
@@ -67,7 +71,7 @@ const StyledDefault = styled.img`
   ${ImageCSS}
 `;
 
-const Thumb: React.FC<ThumbData>  = ({id, src, title}) => (
+const Thumb: React.FC<ThumbProps>  = ({id, src, title}) => (
   <StyledThumb to={`detail/${id}`}>
     <StyledOverlay>
       <StyledThumbText>{title}</StyledThumbText>

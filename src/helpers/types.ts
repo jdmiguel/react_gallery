@@ -1,16 +1,9 @@
-export type ThumbData = {
-  id: number;
-  src: string;
-  title: string;
-}
-
-export type DetailData = {
+export type ImageData = {
   id: number;
   src: string;
   title: string;
   views: number;
   downloads: number;
-  favorites: number;
   likes: number;
 }
 

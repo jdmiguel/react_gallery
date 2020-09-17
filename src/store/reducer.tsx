@@ -1,25 +1,22 @@
 import * as actionTypes from './actionTypes';
 
+import { ImageData } from '../helpers/types'; 
+
 type InitialState = {
-  largeImage: string
+  images: ImageData[]
 }
 
 const initialState:InitialState = {
-  largeImage: ''
+  images: []
 };
 
 const reducer = (state = initialState, action:any) => {
   switch (action.type) {
-    case actionTypes.SET_LARGE_IMAGE:
+    case actionTypes.ADD_IMAGES:
       return {
         ...state,
-        largeImage: action.image
+        images: [...state.images,...action.images]
       };
-    case actionTypes.CLEAR_LARGE_IMAGE:
-      return {
-        ...state,
-        largeImage: initialState.largeImage
-      };  
     default:
       return state;
   }

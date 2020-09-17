@@ -1,10 +1,8 @@
 import * as actionTypes from './actionTypes';
 
-export const setLargeImage = (image: string) => ({
-  type: actionTypes.SET_LARGE_IMAGE,
-  image
-});
+import { ImageData } from '../helpers/types'; 
 
-export const clearLargeImage = () => ({
-  type: actionTypes.CLEAR_LARGE_IMAGE
+export const addImages = (images: ImageData[]) => ({
+  type: actionTypes.ADD_IMAGES,
+  images
 });
