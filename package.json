@@ -9,6 +9,7 @@
     "react": "^16.13.1",
     "react-configurable-grid": "^2.2.2",
     "react-dom": "^16.13.1",
+    "react-intersection-observer": "^8.28.5",
     "react-lazy-images": "^1.1.0",
     "react-redux": "^7.2.0",
     "react-router": "^5.0.1",

@@ -10,3 +10,13 @@ export const DEFAULT_THUMBS = [
     title: ''
   },
 ];
+
+// THUMBS SCROLL
+export const INITIAL_PAGE = 1;
+export const MIN_FOOTER_VIEWS = 3;
+export const MAX_PAGES_ALLOWED = 20;
+export const OBSERVER_OPTIONS = {
+  root: document.querySelector('root'),
+  rootMargin: '25%',
+  threshold: 0,
+};

@@ -1,5 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { InView } from 'react-intersection-observer';
+
+import { OBSERVER_OPTIONS } from '../../../helpers/constants';
+
+export type FooterProps = {
+  onViewFooter: () => void;
+}
 
 const StyledFooter = styled.footer`
   position: absolute;
@@ -64,22 +71,32 @@ const StyledLink = styled.a`
   }
 `;
 
-const Footer: React.FC = () => (
-  <StyledFooter>
-    <StyledText>REACT GALLERY</StyledText>
-    <StyledText>
-      REPO ON 
-      <StyledLink href="https://github.com/jdmiguel/react-gallery" target="_blank">
-        GITHUB
-      </StyledLink>
-    </StyledText>
-    <StyledText>
-      BY
-      <StyledLink href="https://jdmiguel.netlify.app" target="_blank">
-        JDMIGUEL
-      </StyledLink>
-    </StyledText>
-  </StyledFooter>
+const Footer: React.FC<FooterProps> = ({ onViewFooter }) => (
+  <InView
+    {...OBSERVER_OPTIONS}
+    as="div"
+    onChange={(inView) => {
+      if (inView) {
+        onViewFooter();
+      }
+    }}
+  >
+    <StyledFooter>
+      <StyledText>REACT GALLERY</StyledText>
+      <StyledText>
+        REPO ON 
+        <StyledLink href="https://github.com/jdmiguel/react-gallery" target="_blank">
+          GITHUB
+        </StyledLink>
+      </StyledText>
+      <StyledText>
+        BY
+        <StyledLink href="https://jdmiguel.netlify.app" target="_blank">
+          JDMIGUEL
+        </StyledLink>
+      </StyledText>
+    </StyledFooter>
+  </InView>
 );
 
 export default Footer;

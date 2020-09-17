@@ -91,37 +91,39 @@ exports[`Component: Footer should render 1`] = `
   }
 }
 
-<footer
-  class="c0"
->
-  <p
-    class="c1"
+<div>
+  <footer
+    class="c0"
   >
-    REACT GALLERY
-  </p>
-  <p
-    class="c1"
-  >
-    REPO ON
-    <a
-      class="c2"
-      href="https://github.com/jdmiguel/react-gallery"
-      target="_blank"
+    <p
+      class="c1"
     >
-      GITHUB
-    </a>
-  </p>
-  <p
-    class="c1"
-  >
-    BY
-    <a
-      class="c2"
-      href="https://jdmiguel.netlify.app"
-      target="_blank"
+      REACT GALLERY
+    </p>
+    <p
+      class="c1"
     >
-      JDMIGUEL
-    </a>
-  </p>
-</footer>
+      REPO ON
+      <a
+        class="c2"
+        href="https://github.com/jdmiguel/react-gallery"
+        target="_blank"
+      >
+        GITHUB
+      </a>
+    </p>
+    <p
+      class="c1"
+    >
+      BY
+      <a
+        class="c2"
+        href="https://jdmiguel.netlify.app"
+        target="_blank"
+      >
+        JDMIGUEL
+      </a>
+    </p>
+  </footer>
+</div>
 `;

@@ -1,4 +1,10 @@
-import React, { useEffect, useState, Dispatch } from 'react';
+import React, {
+  useRef,
+  useState,
+  Dispatch,
+  useCallback,
+  useEffect,
+} from 'react';
 import { Row, Col } from 'react-configurable-grid';
 import styled from 'styled-components';
 
@@ -9,7 +15,12 @@ import Thumb from '../../core/Thumb';
 import { getImages } from '../../../services';
 
 import { ThumbData, ImageExtendedData } from '../../../helpers/types';
-import { DEFAULT_THUMBS } from '../../../helpers/constants';
+import {
+  DEFAULT_THUMBS,
+  MIN_FOOTER_VIEWS,
+  INITIAL_PAGE,
+  MAX_PAGES_ALLOWED,
+} from '../../../helpers/constants';
 
 const StyledThumbsWrapper = styled.div`
   margin: 40px 0;
@@ -21,9 +32,9 @@ const StyledCol = styled(Col)`
   margin-bottom: 30px;
 `;
 
-const getFirstTag = (text: string) => text.substring(0,text.indexOf(','));
+const getFirstTag = (text: string) => text.substring(0, text.indexOf(','));
 
-const getFormattedImages = (image: ImageExtendedData) => ({
+const getThumbs = (image: ImageExtendedData) => ({
   id: image.id,
   src: image.webformatURL,
   title: getFirstTag(image.tags),
@@ -33,60 +44,78 @@ const handleDownloadedImages = (images: ImageExtendedData[]) => (
   formattedFuntion: any,
 ) => images.map((image: ImageExtendedData) => formattedFuntion(image));
 
-const handleGetImages = async () => {
-  const { data, status } = await getImages();
+const handleGetImages = async (page: number) => {
+  const { data, status } = await getImages(page);
 
   if (status === 200) {
-    const { hits, totalHits } = data;
-    const images = handleDownloadedImages(hits);
+    const images = handleDownloadedImages(data.hits);
 
     return {
-      images: images(getFormattedImages),
-      total: totalHits,
+      thumbs: images(getThumbs),
     };
   }
-
-  return {
-    images: undefined,
-    total: 0,
-  };
-}
+};
 
 const HomePage: React.FC = () => {
-  const [thumbs, setThumbs]: [
-    ThumbData[],
-    Dispatch<ThumbData[]>,
-  ] = useState(DEFAULT_THUMBS);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const viewedFooterCounterRef = useRef(1);
+  const pageCounterRef = useRef(INITIAL_PAGE);
 
-  const onGetImages = async () => {
-    const imagesData = await handleGetImages();
+  const [thumbs, setThumbs]: [ThumbData[], Dispatch<ThumbData[]>] = useState(
+    DEFAULT_THUMBS,
+  );
+  const [isLoading, setIsLoading] = useState(false);
 
-    if (imagesData.images) {
-      setThumbs(imagesData.images)
-    } 
-  };
+  const onGetImages = useCallback(
+    async (page = 1) => {
+      setIsLoading(true);
+
+      const images = await handleGetImages(page);
+
+      if (images?.thumbs) {
+        const currentThumbs =
+          page === 1 ? images.thumbs : [...thumbs, ...images.thumbs];
+        setThumbs(currentThumbs);
+      }
+    },
+    [thumbs],
+  );
 
   useEffect(() => {
     onGetImages();
-  },[]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [thumbs]);
+
+  const handleOnViewFooter = useCallback(() => {
+    viewedFooterCounterRef.current++;
+
+    if (
+      viewedFooterCounterRef.current >= MIN_FOOTER_VIEWS &&
+      !isLoading &&
+      pageCounterRef.current < MAX_PAGES_ALLOWED
+    ) {
+      pageCounterRef.current++;
+      onGetImages(pageCounterRef.current);
+    }
+  }, [isLoading, onGetImages]);
 
   return (
-    <Layout>
-      <StyledThumbsWrapper>
+    <Layout onViewFooter={handleOnViewFooter}>
+      <StyledThumbsWrapper ref={wrapperRef}>
         <Row>
-          {thumbs.map((image:ThumbData) => (
-            <StyledCol key={image.id} xs={12} sm={4} xl={3}>
-              <Thumb
-                id={image.id}
-                src={image.src}
-                title={image.title}
-              />
-            </StyledCol>  
-          )) }
+          {thumbs.map((image: ThumbData, index: number) => (
+            <StyledCol key={`${image.id} + ${index}`} xs={12} sm={4} xl={3}>
+              <Thumb id={image.id} src={image.src} title={image.title} />
+            </StyledCol>
+          ))}
         </Row>
       </StyledThumbsWrapper>
     </Layout>
-  )
+  );
 };
 
 export default HomePage;

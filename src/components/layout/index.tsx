@@ -6,6 +6,7 @@ import Footer from "./Footer";
 
 type LayoutProps = {
   children: React.ReactElement | Array<React.ReactElement>;
+  onViewFooter: () => void;
 };
 
 const StyledLayout = styled.div`
@@ -21,11 +22,11 @@ const StyledMain = styled.main`
   margin: 0 auto 60px;
 `;
 
-const Layout: React.FC<LayoutProps> = ({ children }) => (
+const Layout: React.FC<LayoutProps> = ({ children, onViewFooter }) => (
   <StyledLayout>
     <Header />
     <StyledMain>{children}</StyledMain>
-    <Footer />
+    <Footer onViewFooter={onViewFooter}/>
   </StyledLayout>
 );
 

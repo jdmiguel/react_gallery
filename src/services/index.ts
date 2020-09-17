@@ -24,13 +24,11 @@ export const getImages = async (page = 1): Promise<any> => {
       method: 'GET',
       params: {
         key: API_KEY,
-        image_type: 'photo',
+        page: page,
         per_page: 20,
+        image_type: 'photo',
         orientation: 'horizontal',
-        colors: 'grayscale',
-        min_width:'600',
-        min_height: '400',
-        order: 'latest'
+        order: 'popular'
       },
     });
 
