@@ -18,14 +18,14 @@ const handleApiError = (error: AxiosError) => {
   }
 };
 
-export const getImages = async (page = 1): Promise<any> => {
+export const getImages = async (page: number, amount: number): Promise<any> => {
   try {
     const response = await axios(API_PIXABAY, {
       method: 'GET',
       params: {
         key: API_KEY,
         page: page,
-        per_page: 20,
+        per_page: amount,
         image_type: 'photo',
         orientation: 'horizontal',
         order: 'popular'

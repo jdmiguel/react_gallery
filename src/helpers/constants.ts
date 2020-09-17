@@ -11,12 +11,14 @@ export const DEFAULT_THUMBS = [
   },
 ];
 
-// THUMBS SCROLL
+// IMAGE LOADING
 export const INITIAL_PAGE = 1;
-export const MIN_FOOTER_VIEWS = 3;
 export const MAX_PAGES_ALLOWED = 20;
+export const INITIAL_MAX_IMAGES_LOADED = 40;
+export const MAX_IMAGES_LOADED_BY_SCROLL = 20;
+export const MIN_FOOTER_VIEWS = 3;
 export const OBSERVER_OPTIONS = {
   root: document.querySelector('root'),
-  rootMargin: '25%',
+  rootMargin: '15%',
   threshold: 0,
 };

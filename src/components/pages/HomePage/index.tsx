@@ -20,6 +20,8 @@ import {
   MIN_FOOTER_VIEWS,
   INITIAL_PAGE,
   MAX_PAGES_ALLOWED,
+  INITIAL_MAX_IMAGES_LOADED,
+  MAX_IMAGES_LOADED_BY_SCROLL
 } from '../../../helpers/constants';
 
 const StyledThumbsWrapper = styled.div`
@@ -44,8 +46,8 @@ const handleDownloadedImages = (images: ImageExtendedData[]) => (
   formattedFuntion: any,
 ) => images.map((image: ImageExtendedData) => formattedFuntion(image));
 
-const handleGetImages = async (page: number) => {
-  const { data, status } = await getImages(page);
+const handleGetImages = async (page: number, numImages: number) => {
+  const { data, status } = await getImages(page, numImages);
 
   if (status === 200) {
     const images = handleDownloadedImages(data.hits);
@@ -67,10 +69,10 @@ const HomePage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const onGetImages = useCallback(
-    async (page = 1) => {
+    async (page = 1, numImages = INITIAL_MAX_IMAGES_LOADED) => {
       setIsLoading(true);
 
-      const images = await handleGetImages(page);
+      const images = await handleGetImages(page, numImages);
 
       if (images?.thumbs) {
         const currentThumbs =
@@ -99,7 +101,7 @@ const HomePage: React.FC = () => {
       pageCounterRef.current < MAX_PAGES_ALLOWED
     ) {
       pageCounterRef.current++;
-      onGetImages(pageCounterRef.current);
+      onGetImages(pageCounterRef.current, MAX_IMAGES_LOADED_BY_SCROLL);
     }
   }, [isLoading, onGetImages]);
 
