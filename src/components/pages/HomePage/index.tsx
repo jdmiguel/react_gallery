@@ -89,7 +89,7 @@ const HomePage: React.FC = () => {
           page === 1 ? loadedImages : [...currentImages, ...loadedImages];
         
         setCurrentImages(images);
-        dispatch(addImages(images));
+        dispatch(addImages(loadedImages));
       }
     },
     [currentImages, dispatch],

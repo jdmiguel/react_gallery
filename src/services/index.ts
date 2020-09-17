@@ -26,6 +26,7 @@ export const getImages = async (page: number, amount: number): Promise<any> => {
         key: API_KEY,
         page: page,
         per_page: amount,
+        colors: 'grayscale',
         image_type: 'photo',
         orientation: 'horizontal',
         order: 'popular'
