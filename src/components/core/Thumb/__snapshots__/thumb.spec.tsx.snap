@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Thumb should render 1`] = `
+.c0 {
+  cursor: pointer;
+}
+
+.c0:hover > div:first-of-type {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.c1 {
+  position: absolute;
+  left: 9%;
+  top: 5%;
+  width: 82%;
+  height: 78%;
+  z-index: 1;
+  background-color: rgba(255,255,255,0.7);
+  -webkit-transition: opacity,-webkit-transform 0.3s ease-out;
+  -webkit-transition: opacity,transform 0.3s ease-out;
+  transition: opacity,transform 0.3s ease-out;
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transform: scale(0.9);
+  -ms-transform: scale(0.9);
+  transform: scale(0.9);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #734359;
+}
+
+.c3 {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 18px;
+}
+
+.c2 {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 18px;
+}
+
+<a
+  class="c0"
+  href="/detail/3063284"
+>
+  <div
+    class="c1"
+  >
+    flower
+  </div>
+  <div
+    class="LazyImage-Placeholder"
+  >
+    <img
+      alt="flower"
+      class="c2 c3"
+      src="default.png"
+    />
+  </div>
+</a>
+`;
