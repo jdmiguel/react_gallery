@@ -49,7 +49,7 @@ In order to improve the performance of the application, I did the following:
 
 - The HomePage loads all the images by using a lazyload by user scroll.
 - I made the most of the UseCallback hook to improve the performace by memoizing some values...
-- Nevertheless, the HomePage displays the stored images in Redux and if they are not available, they images are retrieved by consuming the request service.
+- Nevertheless, the HomePage displays the stored images in Redux and if they are not available, images are retrieved by consuming the request service.
 
 ### TESTING
 
