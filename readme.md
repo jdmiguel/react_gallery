@@ -31,13 +31,13 @@ This app was mainly developed with React and Typescript. For the Styles, I used 
 
 The source files are in src folder that is composed of following folders:
 
-* **components**: App components organized by the following folders:
+- **components**: App components organized by the following folders:
     * **core**: Presentational components related to UI elements
     * **layout**: Presentational components related to the layout of the application
     * **pages**: Container components related to the pages of the application
 - **services**: Api requests
 - **store**: Global state by implementing reducers, actions and actionTypes
-* **helpers**: Reusable values such as types, constants, and mocks
+- **helpers**: Reusable values such as types, constants, and mocks
 - **utils**: Supporting constants and models
 
 ### PERFORMANCE
