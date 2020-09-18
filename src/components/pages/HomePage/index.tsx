@@ -5,16 +5,17 @@ import React, {
   useCallback,
   useEffect,
 } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Row, Col } from 'react-configurable-grid';
 import styled from 'styled-components';
-
-import { addImages } from '../../../store/actions';
 
 import Layout from '../../layout';
 
 import Loader from '../../core/Loader';
 import Thumb from '../../core/Thumb';
+
+import { InitialState } from '../../../store/reducer';
+import { addImages, setPage } from '../../../store/actions';
 
 import { getImages } from '../../../services';
 
@@ -68,6 +69,7 @@ const handleGetImages = async (page: number, amount: number) => {
 };
 
 const HomePage: React.FC = () => {
+  const { images, page } = useSelector((state: InitialState) => state);
   const dispatch = useDispatch();
 
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -92,6 +94,7 @@ const HomePage: React.FC = () => {
               : loadedImages;
 
         dispatch(addImages(loadedImages));
+        dispatch(setPage(pageCounterRef.current));
         setCurrentImages(images);
       }
     },
@@ -99,7 +102,12 @@ const HomePage: React.FC = () => {
   );
 
   useEffect(() => {
-    onGetImages();
+    if(images.length){
+      setCurrentImages(images);
+      pageCounterRef.current = page;
+    } else {
+      onGetImages();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
