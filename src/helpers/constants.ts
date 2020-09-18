@@ -13,3 +13,4 @@ export const OBSERVER_OPTIONS = {
   rootMargin: '15%',
   threshold: 0,
 };
+export const PHOTO_LOADER_DELAY = 1000;

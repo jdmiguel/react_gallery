@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { LazyImage } from 'react-lazy-images';
 
 import Default from './defaultPhoto.png';
 
 import Loader, { LoaderType } from '../Loader';
+
+import { PHOTO_LOADER_DELAY } from '../../../helpers/constants';
 
 export type PhotoProps = {
   src: string | undefined;
@@ -48,35 +50,43 @@ const StyledDefault = styled.img`
   height: 100%;
 `;
 
-const Photo: React.FC<PhotoProps> = ({ src, title }) => (
-  <StyledPhoto>
-    <StyledOverlay>
-      <StyledPhotoText>{title}</StyledPhotoText>
-    </StyledOverlay>
-    {src && title && (
-      <StyledImage
-        src={src}
-        alt={title}
-        debounceDurationMs={500}
-        loading={() => (
-          <Loader type={LoaderType.LIGHT} />
-        )}
-        error={() => (
-          <p>There was an error fetching this image :(</p>
-        )}
-        placeholder={({ imageProps, ref }) => (
-          <div ref={ref} className="LazyImage-Placeholder">
-            <StyledDefault {...imageProps} src={Default} alt={title} />
-          </div>
-        )}
-        actual={({ imageProps }) => (
-          <div className="LazyImage-Actual">
-            <img {...imageProps} alt={title} />
-          </div>
-        )}
-      />
-    )}
-  </StyledPhoto>
-);
+const Photo: React.FC<PhotoProps> = ({ src, title }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, PHOTO_LOADER_DELAY);
+  }, [src]);
+
+  return (
+    <StyledPhoto>
+      { isLoading && <Loader /> }
+      <StyledOverlay>
+        <StyledPhotoText>{title}</StyledPhotoText>
+      </StyledOverlay>
+      {src && title && (
+        <StyledImage
+          src={src}
+          alt={title}
+          debounceDurationMs={500}
+          loading={() => <Loader type={LoaderType.LIGHT} />}
+          error={() => <p>There was an error fetching this image :(</p>}
+          placeholder={({ imageProps, ref }) => (
+            <div ref={ref} className="LazyImage-Placeholder">
+              <StyledDefault {...imageProps} src={Default} alt={title} />
+            </div>
+          )}
+          actual={({ imageProps }) => (
+            <div className="LazyImage-Actual">
+              <img {...imageProps} alt={title} />
+            </div>
+          )}
+        />
+      )}
+    </StyledPhoto>
+  );
+};
 
 export default Photo;

@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, useEffect } from 'react';
+import React, { useState, Dispatch, useEffect, useCallback } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Row, Col } from 'react-configurable-grid';
@@ -23,6 +23,9 @@ const StyledDetailPage = styled.div`
   width: 100%;
   min-height: 100vh;
   background-color: ${({ theme }) => theme.palette.PRIMARY_DARK};
+  @media only screen and (min-width: 768px) {
+    padding-bottom: 50px;
+  }
 `;
 
 const StyledButtonsWrapper = styled.div`
@@ -32,10 +35,10 @@ const StyledButtonsWrapper = styled.div`
   justify-content: center;
   align-items: center;
   button {
-    &:first-of-type{
+    &:first-of-type {
       margin-right: 25px;
     }
-    &:last-of-type{
+    &:last-of-type {
       margin-left: 25px;
     }
   }
@@ -56,10 +59,10 @@ const StyledPillsWrapper = styled.div`
     flex-direction: row;
     h3 {
       margin-bottom: 0;
-      &:first-of-type{
+      &:first-of-type {
         margin-right: 50px;
       }
-      &:last-of-type{
+      &:last-of-type {
         margin-left: 50px;
       }
     }
@@ -95,19 +98,37 @@ const DetailPage: React.FC = () => {
     }
   }, [history, id, images]);
 
+  const handleClickArrowButton = useCallback(
+    (isPrev = true) => {
+      const currentIndex = images.findIndex((image) => `${image.id}` === id);
+      const updatedIndex = isPrev
+        ? currentIndex === 0
+          ? images.length - 1
+          : currentIndex - 1
+        : currentIndex === images.length - 1
+          ? 0
+          : currentIndex + 1;
+      const currentImageId = images[updatedIndex].id;
+  
+      history.push(`${currentImageId}`);
+    },
+    [history, id, images],
+  );
+  
+
   return (
     <StyledDetailPage>
       <Row>
         <Col xs={12}>
           <StyledButtonsWrapper>
-            <Button> 
+            <Button onClick={handleClickArrowButton}>
               <i className="material-icons">arrow_back</i>
             </Button>
-            <Button> 
+            <Button onClick={() => history.push('/')}>
               <i className="material-icons">close</i>
               <span>close</span>
             </Button>
-            <Button> 
+            <Button onClick={() => handleClickArrowButton(false)}>
               <i className="material-icons">arrow_forward</i>
             </Button>
           </StyledButtonsWrapper>
@@ -116,18 +137,18 @@ const DetailPage: React.FC = () => {
       <Row>
         <Col xs={12}>
           <StyledPillsWrapper>
-            <Pill text={`${photoData?.views} views`}/> 
-            <Pill text={`${photoData?.downloads} downloads`}/> 
-            <Pill text={`${photoData?.likes} likes`}/> 
+            <Pill text={`${photoData?.views} views`} />
+            <Pill text={`${photoData?.downloads} downloads`} />
+            <Pill text={`${photoData?.likes} likes`} />
           </StyledPillsWrapper>
         </Col>
       </Row>
       <Row>
-        <Col xs={0} sm={2} xl={3}/>
+        <Col xs={0} sm={2} xl={3} />
         <Col xs={12} sm={8} xl={6}>
           <Photo src={photoData?.src} title={photoData?.title} />
         </Col>
-        <Col xs={0} sm={2} xl={3}/>
+        <Col xs={0} sm={2} xl={3} />
       </Row>
     </StyledDetailPage>
   );
