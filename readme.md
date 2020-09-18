@@ -38,7 +38,6 @@ The source files are in src folder that is composed of following folders:
 - **services**: Api requests
 - **store**: Global state by implementing reducers, actions and actionTypes
 - **helpers**: Reusable values such as types, constants, and mocks
-- **utils**: Supporting constants and models
 
 ### API
 
