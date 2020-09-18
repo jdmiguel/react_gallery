@@ -7,7 +7,7 @@ import { GlobalStyles } from './helpers/GlobalStyles';
 
 import HomePage from './components/pages/HomePage';
 import DetailPage from './components/pages/DetailPage';
-import PageError from './components/pages/PageError';
+import PageError from './components/pages/ErrorPage';
 
 const App = () => (
   <ThemeProvider theme={theme}>
