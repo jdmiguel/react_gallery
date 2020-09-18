@@ -51,7 +51,7 @@ exports[`Component: Header should render 1`] = `
   }
 }
 
-<div
+<header
   class="c0"
 >
   <a
@@ -68,5 +68,5 @@ exports[`Component: Header should render 1`] = `
   >
     Find out all the images you can imagine!
   </h2>
-</div>
+</header>
 `;

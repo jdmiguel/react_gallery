@@ -114,7 +114,6 @@ const DetailPage: React.FC = () => {
     },
     [history, id, images],
   );
-  
 
   return (
     <StyledDetailPage>
