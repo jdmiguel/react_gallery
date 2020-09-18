@@ -1,11 +1,13 @@
 export type ImageData = {
   id: number;
-  src: string;
+  thumbSrc: string;
+  largeSrc: string;
   title: string;
   views: number;
   downloads: number;
   likes: number;
 }
+export type ImagesData = ImageData[];
 
 export type ImageExtendedData = {
   id: number;
@@ -33,3 +35,4 @@ export type ImageExtendedData = {
   user: string;
   userImageURL: string;
 }
+export type ImagesExtendedData = ImageExtendedData[];

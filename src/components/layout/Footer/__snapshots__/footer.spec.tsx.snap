@@ -1,7 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Component: Footer should render 1`] = `
+.c0 {
+  position: absolute;
+  left: 15px;
+  bottom: 15px;
+  font-size: 1rem;
+  color: #798186;
+}
+
 <div>
-  <footer />
+  <footer
+    class="c0"
+  >
+    All rights reserved © 2020
+  </footer>
 </div>
 `;

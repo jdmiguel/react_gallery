@@ -2,18 +2,6 @@
 export const API_PIXABAY = "https://pixabay.com/api/";
 export const API_KEY = "6473511-0417f2cad683f1bee54cafe15";
 
-// IMAGES
-export const DEFAULT_THUMBS = [
-  {
-    id: 0,
-    src: '',
-    title: '',
-    views: 0,
-    downloads: 0,
-    likes: 0,
-  },
-];
-
 // IMAGE LOADING
 export const INITIAL_PAGE = 1;
 export const MAX_PAGES_ALLOWED = 20;

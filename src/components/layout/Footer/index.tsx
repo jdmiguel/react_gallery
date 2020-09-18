@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { OBSERVER_OPTIONS } from '../../../helpers/constants';
 
-export type FooterProps = {
+type FooterProps = {
   onViewFooter: () => void;
 }
 

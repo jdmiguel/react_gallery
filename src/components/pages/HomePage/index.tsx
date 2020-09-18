@@ -18,9 +18,8 @@ import Thumb from '../../core/Thumb';
 
 import { getImages } from '../../../services';
 
-import { ImageData, ImageExtendedData } from '../../../helpers/types';
+import { ImageData, ImagesData, ImageExtendedData, ImagesExtendedData } from '../../../helpers/types';
 import {
-  DEFAULT_THUMBS,
   MIN_FOOTER_VIEWS,
   INITIAL_PAGE,
   MAX_PAGES_ALLOWED,
@@ -47,14 +46,15 @@ const getFirstTag = (text: string) => text.substring(0, text.indexOf(','));
 
 const refineImages = (image: ImageExtendedData) => ({
   id: image.id,
-  src: image.webformatURL,
+  thumbSrc: image.webformatURL,
+  largeSrc: image.largeImageURL,
   title: getFirstTag(image.tags),
   views: image.views,
   downloads: image.downloads,
   likes: image.likes
 });
 
-const handleLoadedImages = (images: ImageExtendedData[]) => (fn: RefineFn) =>
+const handleLoadedImages = (images: ImagesExtendedData) => (fn: RefineFn) =>
   images.map((image: ImageExtendedData) => fn(image));
 
 const handleGetImages = async (page: number, amount: number) => {
@@ -74,9 +74,7 @@ const HomePage: React.FC = () => {
   const viewedFooterCounterRef = useRef(1);
   const pageCounterRef = useRef(INITIAL_PAGE);
 
-  const [currentImages, setCurrentImages]: [ImageData[], Dispatch<ImageData[]>] = useState(
-    DEFAULT_THUMBS,
-  );
+  const [currentImages, setCurrentImages]: [ImagesData | undefined, Dispatch<ImagesData>] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   const onGetImages = useCallback(
@@ -87,7 +85,11 @@ const HomePage: React.FC = () => {
 
       if (loadedImages) {
         const images =
-          page === 1 ? loadedImages : [...currentImages, ...loadedImages];
+          page === 1 
+            ? loadedImages 
+            : currentImages 
+              ? [...currentImages, ...loadedImages] 
+              : loadedImages;
 
         dispatch(addImages(loadedImages));
         setCurrentImages(images);
@@ -102,7 +104,7 @@ const HomePage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if(currentImages.length > 1){
+    if(currentImages && currentImages.length > 1){
       setIsLoading(false)
     }
   }, [currentImages]);
@@ -125,9 +127,9 @@ const HomePage: React.FC = () => {
       <StyledThumbsWrapper ref={wrapperRef}>
         {isLoading && <Loader />}
         <Row>
-          {currentImages.map((image: ImageData, index: number) => (
+          {currentImages && currentImages.map((image: ImageData, index: number) => (
             <StyledCol key={`${image.id} + ${index}`} xs={12} sm={4} xl={3}>
-              <Thumb id={image.id} src={image.src} title={image.title} />
+              <Thumb id={image.id} src={image.thumbSrc} title={image.title} />
             </StyledCol>
           ))}
         </Row>
