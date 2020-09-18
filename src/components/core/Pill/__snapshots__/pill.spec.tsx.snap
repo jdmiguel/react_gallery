@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Component: Button should render 1`] = `
+exports[`Component: Pill should render 1`] = `
 .c0 {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 400;
-  text-transform: uppercase;
-  background-color: #2f3235;
-  color: #F2C1AE;
-  outline: none;
-  border: none;
+  background-color: #A66885;
+  color: #734359;
+  border-radius: 8px;
+  padding: 10px;
+  width: 200px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -21,23 +21,18 @@ exports[`Component: Button should render 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  padding: 10px;
-  cursor: pointer;
-  -webkit-transition: color 0.3s ease-out;
-  transition: color 0.3s ease-out;
+  text-transform: capitalize;
 }
 
-.c0:hover {
-  color: #E5EAED;
+@media only screen and (min-width:768px) {
+  .c0 {
+    width: auto;
+  }
 }
 
-.c0 span {
-  margin-left: 5px;
-}
-
-<button
+<h3
   class="c0"
 >
-  default button
-</button>
+  default pill
+</h3>
 `;

@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import Button from '../../core/Button';
 import Photo from '../../core/Photo';
+import Pill from '../../core/Pill';
 
 import { InitialState } from '../../../store/reducer';
 
@@ -13,6 +14,9 @@ type Params = { id: string };
 type PhotoData = {
   src: string;
   title: string;
+  views: number;
+  downloads: number;
+  likes: number;
 };
 
 const StyledDetailPage = styled.div`
@@ -21,11 +25,45 @@ const StyledDetailPage = styled.div`
   background-color: ${({ theme }) => theme.palette.PRIMARY_DARK};
 `;
 
-const StyledCloseButtonWrapper = styled.div`
+const StyledButtonsWrapper = styled.div`
+  margin: 30px 0 20px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 0;
+  button {
+    &:first-of-type{
+      margin-right: 25px;
+    }
+    &:last-of-type{
+      margin-left: 25px;
+    }
+  }
+`;
+
+const StyledPillsWrapper = styled.div`
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h3 {
+    margin-bottom: 15px;
+  }
+  @media only screen and (min-width: 768px) {
+    margin: 20px 0 30px;
+    flex-direction: row;
+    h3 {
+      margin-bottom: 0;
+      &:first-of-type{
+        margin-right: 50px;
+      }
+      &:last-of-type{
+        margin-left: 50px;
+      }
+    }
+  }
 `;
 
 const DetailPage: React.FC = () => {
@@ -50,6 +88,9 @@ const DetailPage: React.FC = () => {
       setPhotoData({
         src: currentImg.largeSrc,
         title: currentImg.title,
+        views: currentImg.views,
+        downloads: currentImg.downloads,
+        likes: currentImg.likes,
       });
     }
   }, [history, id, images]);
@@ -58,26 +99,35 @@ const DetailPage: React.FC = () => {
     <StyledDetailPage>
       <Row>
         <Col xs={12}>
-          <StyledCloseButtonWrapper>
+          <StyledButtonsWrapper>
+            <Button> 
+              <i className="material-icons">arrow_back</i>
+            </Button>
             <Button> 
               <i className="material-icons">close</i>
-              close
+              <span>close</span>
             </Button>
-          </StyledCloseButtonWrapper>
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={12} sm={4} xl={2}>
-        </Col>
-        <Col xs={12} sm={4} xl={8}>
-          <Photo src={photoData?.src} title={photoData?.title} />
-        </Col>
-        <Col xs={12} sm={4} xl={2}>
+            <Button> 
+              <i className="material-icons">arrow_forward</i>
+            </Button>
+          </StyledButtonsWrapper>
         </Col>
       </Row>
       <Row>
         <Col xs={12}>
+          <StyledPillsWrapper>
+            <Pill text={`${photoData?.views} views`}/> 
+            <Pill text={`${photoData?.downloads} downloads`}/> 
+            <Pill text={`${photoData?.likes} likes`}/> 
+          </StyledPillsWrapper>
         </Col>
+      </Row>
+      <Row>
+        <Col xs={0} sm={2} xl={3}/>
+        <Col xs={12} sm={8} xl={6}>
+          <Photo src={photoData?.src} title={photoData?.title} />
+        </Col>
+        <Col xs={0} sm={2} xl={3}/>
       </Row>
     </StyledDetailPage>
   );

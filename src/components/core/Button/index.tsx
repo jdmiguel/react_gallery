@@ -23,8 +23,8 @@ const StyledButton = styled.button`
   &:hover {
     color: ${({ theme }) => theme.palette.LIGHT_MAX};
   }
-  i{
-    margin-right: 5px;
+  span{
+    margin-left: 5px;
   }
 `;
 
