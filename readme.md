@@ -40,6 +40,10 @@ The source files are in src folder that is composed of following folders:
 - **helpers**: Reusable values such as types, constants, and mocks
 - **utils**: Supporting constants and models
 
+### API
+
+The [PIXABAY API](https://pixabay.com/api/docs/) was used in this project to implement the service to retrieve a list of random images.
+
 ### PERFORMANCE
 
 In order to improve the performance of the application, I did the following:
