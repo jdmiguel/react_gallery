@@ -6,7 +6,7 @@ import Logo from '../../core/Logo';
 
 import BgHeader from './gallery.jpg';
 
-const StyledHeader = styled.div`
+const StyledHeader = styled.header`
   width: 100%;
   height: 120px;
   display: flex;

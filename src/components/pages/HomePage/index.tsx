@@ -13,6 +13,7 @@ import { addImages } from '../../../store/actions';
 
 import Layout from '../../layout';
 
+import Loader from '../../core/Loader';
 import Thumb from '../../core/Thumb';
 
 import { getImages } from '../../../services';
@@ -76,7 +77,7 @@ const HomePage: React.FC = () => {
   const [currentImages, setCurrentImages]: [ImageData[], Dispatch<ImageData[]>] = useState(
     DEFAULT_THUMBS,
   );
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const onGetImages = useCallback(
     async (page = 1, amount = INITIAL_MAX_IMAGES_LOADED) => {
@@ -87,9 +88,9 @@ const HomePage: React.FC = () => {
       if (loadedImages) {
         const images =
           page === 1 ? loadedImages : [...currentImages, ...loadedImages];
-        
-        setCurrentImages(images);
+
         dispatch(addImages(loadedImages));
+        setCurrentImages(images);
       }
     },
     [currentImages, dispatch],
@@ -101,7 +102,9 @@ const HomePage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    setIsLoading(false);
+    if(currentImages.length > 1){
+      setIsLoading(false)
+    }
   }, [currentImages]);
 
   const handleOnViewFooter = useCallback(() => {
@@ -120,6 +123,7 @@ const HomePage: React.FC = () => {
   return (
     <Layout onViewFooter={handleOnViewFooter}>
       <StyledThumbsWrapper ref={wrapperRef}>
+        {isLoading && <Loader />}
         <Row>
           {currentImages.map((image: ImageData, index: number) => (
             <StyledCol key={`${image.id} + ${index}`} xs={12} sm={4} xl={3}>
