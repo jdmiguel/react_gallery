@@ -86,7 +86,7 @@ exports[`Component: Thumb should render 1`] = `
     <img
       alt="flower"
       class="c3 c4"
-      src="default.png"
+      src="defaultThumb.png"
     />
   </div>
 </a>

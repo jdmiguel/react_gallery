@@ -1,52 +1,86 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useParams, useHistory } from "react-router-dom";
+import React, { useState, Dispatch, useEffect } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Row, Col } from 'react-configurable-grid';
 import styled from 'styled-components';
 
-import Loader, { LoaderType } from '../../core/Loader';
+import Button from '../../core/Button';
+import Photo from '../../core/Photo';
 
-import { InitialState } from '../../../store/reducer'; 
-
+import { InitialState } from '../../../store/reducer';
 
 type Params = { id: string };
+type PhotoData = {
+  src: string;
+  title: string;
+};
 
 const StyledDetailPage = styled.div`
   width: 100%;
-  height: 100vh;
-  background-color: ${({theme}) => theme.palette.PRIMARY_DARK};
-  padding: 0 20px;
-  @media only screen and (min-width: 768px) {
-    padding: 0 30px;
-  }
+  min-height: 100vh;
+  background-color: ${({ theme }) => theme.palette.PRIMARY_DARK};
+`;
+
+const StyledCloseButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
 `;
 
 const DetailPage: React.FC = () => {
-  const { id }:Params = useParams();
+  const { id }: Params = useParams();
   const history = useHistory();
   const images = useSelector((state: InitialState) => state.images);
 
-  const [isLoading, setIsLoading] = useState(true);
-  const imgSrc = useRef('');
+  const [photoData, setPhotoData]: [
+    PhotoData | undefined,
+    Dispatch<PhotoData>,
+  ] = useState();
 
   useEffect(() => {
-    if(images.length <= 1){
+    window.scrollTo(0, 0);
+
+    if (images.length <= 1) {
       history.push('/');
     }
-    
-    setIsLoading(true);
 
-    const currentSrc = images.find(image => `${image.id}` === id)?.largeSrc;
-    if(currentSrc){
-      imgSrc.current = currentSrc;
-      setIsLoading(false);
+    const currentImg = images.find((image) => `${image.id}` === id);
+    if (currentImg) {
+      setPhotoData({
+        src: currentImg.largeSrc,
+        title: currentImg.title,
+      });
     }
   }, [history, id, images]);
 
   return (
     <StyledDetailPage>
-       {isLoading ? <Loader type={LoaderType.LIGHT}/> : <img src={imgSrc.current} alt="dasdf" />}
+      <Row>
+        <Col xs={12}>
+          <StyledCloseButtonWrapper>
+            <Button> 
+              <i className="material-icons">close</i>
+              close
+            </Button>
+          </StyledCloseButtonWrapper>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12} sm={4} xl={2}>
+        </Col>
+        <Col xs={12} sm={4} xl={8}>
+          <Photo src={photoData?.src} title={photoData?.title} />
+        </Col>
+        <Col xs={12} sm={4} xl={2}>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12}>
+        </Col>
+      </Row>
     </StyledDetailPage>
-  )
+  );
 };
 
 export default DetailPage;

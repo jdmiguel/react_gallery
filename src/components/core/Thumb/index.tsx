@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled, { css }  from 'styled-components';
 import { LazyImage } from 'react-lazy-images';
 
-import Default from './default.png';
+import Default from './defaultThumb.png';
 
 export type ThumbProps = {
   id: number;
